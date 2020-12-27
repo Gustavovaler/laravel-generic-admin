@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -28,7 +26,6 @@ class AdminController extends Controller
     public function create(AdminApp $admin_app, $id)
     {
         $data = $admin_app->build_form($id);
-       // $data = json_encode($data);
         $table = strtolower($id).'s';
         return view('admin.create', ['data' => $data, 'table' => $table]);
     }
@@ -52,7 +49,7 @@ class AdminController extends Controller
            }
         }              
         return $object->save();
-        //return $fields;
+        
     }
 
     /**

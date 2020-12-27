@@ -9,11 +9,30 @@
     @csrf
 
     @foreach ($data as $item)
-        @if ($item['name'] != 'id')
+    @if ($item['name'] != 'id')
+        @if($item['name'] == 'password')
             <label for="">{{$item['name']}}</label><br>
-            <input type="@isset($item['type']){{$item['type']}}@endisset" name="{{$item['name']}}" class="form-control" required><br> 
-        @endif
-       
+            <input type="password" name="{{$item['name']}}" class="form-control"
+            @isset($item['max']) maxlength="{{$item['max']}}" @endisset><br>
+        @else
+            <label for="">{{$item['name']}}</label><br>
+            <input type="@isset($item['type']){{$item['type']}}@endisset" name="{{$item['name']}}" class="form-control"
+            @isset($item['max']) maxlength="{{$item['max']}}" @endisset><br>
+        @endif        
+    @endif
+      
+
+{{--         
+        @endif  
+            @if ($item['name'] == 'password')
+                <label for="">{{$item['name']}}</label><br>
+                <input type="@isset($item['type']){{$item['type']}}@endisset" name="{{$item['name']}}" class="form-control"
+                @isset($item['max']) maxlength="{{$item['max']}}" @endisset><br>
+            @endif
+                <label for="">{{$item['name']}}</label><br>
+                <input type="@isset($item['type']){{$item['type']}}@endisset" name="{{$item['name']}}" class="form-control"
+                @isset($item['max']) maxlength="{{$item['max']}}" @endisset><br>  --}}
+           
         
     @endforeach
 

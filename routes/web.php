@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\AdminController;
 Route::get('/', function () {
    return "hola";
 });
-//Route::resource('/admin', AdminController::class);
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/{id}', [AdminController::class, 'show']);

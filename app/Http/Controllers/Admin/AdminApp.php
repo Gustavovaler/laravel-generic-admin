@@ -18,7 +18,8 @@ class AdminApp
             'Product' => 'products',
             'Course'  => 'courses',
             'Program' => 'programs', 
-            'Marca'   => 'marcas'
+            'Marca'   => 'marcas',
+            'Modelo' => 'modelos'
                     
         ];
     }
@@ -39,13 +40,22 @@ class AdminApp
         //returns a field list as an array                 
       return $fields;
   }
+  /**
+   * @param $str string
+   * @param $sample string
+   * @return boolean
+   */
+
+  public function starts_with($str, $sample){
+    
+    return substr($str,0, strlen($sample));;
+  }
 
   public function build_form($model){
       // at first we select the table 
       $table = $this->models[$model];
       $data = [];        
       $data_info[$table] = DB::select('describe '.$table);
-      $form_fields =[];
       foreach ($data_info[$table] as $key) {
         $obj = array();
         foreach ($key as $attr => $value) {
@@ -53,8 +63,9 @@ class AdminApp
             $obj['name'] = $value;
           }
           if ($attr == 'Type') {
-            if ($value == 'varchar(191)') {
+            if ($this->starts_with($value,'varchar')) {
                 $obj['type'] = 'text';
+                $obj['max'] = 191;
             }
             if ($value == 'text') {
               $obj['type'] = 'textarea';
@@ -64,6 +75,7 @@ class AdminApp
             }
             if ($value == 'int(11)') {
               $obj['type'] = 'number';
+              $obj['max'] = 11;
             }
             
           }
@@ -74,4 +86,5 @@ class AdminApp
       //dd($data);
     return $data;
   }
+
 }
