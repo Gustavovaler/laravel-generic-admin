@@ -16,12 +16,16 @@ class AdminApp
          $this->models = [
             'User' =>'users',
             'Product' => 'products',
+            'Course'  => 'courses',
+            'Program' => 'programs', 
+            'Marca'   => 'marcas'
                     
         ];
     }
 
     public function get_models_name(){
         $model_names = array_keys($this->models);
+        //returns an array with names of all models 
         return $model_names;
     }
 
@@ -31,14 +35,17 @@ class AdminApp
         $fields = [];
         foreach ($data[$table] as $key ) {
            array_push($fields,$key->Field);
-        }       
-               
+        }     
+        //returns a field list as an array                 
       return $fields;
   }
 
   public function build_form($model){
+      // at first we select the table 
       $table = $this->models[$model];
-      $table_data = $this->get_fields($table);
-    return $table_data;
+      $data = [];        
+      $data[$table] = DB::select('describe '.$table);
+
+    return $data;
   }
 }

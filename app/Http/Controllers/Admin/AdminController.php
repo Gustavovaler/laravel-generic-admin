@@ -27,7 +27,9 @@ class AdminController extends Controller
      */
     public function create(AdminApp $admin_app, $id)
     {
-        return $admin_app->build_form($id);
+        $data = $admin_app->build_form($id);
+        $table = strtolower($id).'s';
+        return view('admin.create', ['data' => $data, 'table' => $table]);
     }
 
     /**
@@ -36,9 +38,15 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $table)
     {
-        //
+        $model = substr(ucwords($table),0,-1);
+        $model =  'App\Models'.'\\'.$model;
+        $record = new $model;
+        $record->name = "moncho";
+        $record->description = "asdasd as da sdas d as asd as";
+        $record->quantity = 5;        
+        return $record->save();
     }
 
     /**
