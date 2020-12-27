@@ -1,8 +1,9 @@
-@extends('layouts.app')
+@extends('admin.headers.header')
 
 @section('content')
 
     <div class="container mt-5">
+        <h3>{{$model}}s</h3>
         <table class="table table-striped">
             <thead class="thead-dark">
               <tr>

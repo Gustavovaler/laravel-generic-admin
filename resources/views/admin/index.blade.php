@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('admin.headers.header')
+
 @section('content')
     <div class="container">
      <h3>Models</h3>
