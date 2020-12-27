@@ -44,8 +44,34 @@ class AdminApp
       // at first we select the table 
       $table = $this->models[$model];
       $data = [];        
-      $data[$table] = DB::select('describe '.$table);
-
+      $data_info[$table] = DB::select('describe '.$table);
+      $form_fields =[];
+      foreach ($data_info[$table] as $key) {
+        $obj = array();
+        foreach ($key as $attr => $value) {
+          if ($attr == 'Field') {
+            $obj['name'] = $value;
+          }
+          if ($attr == 'Type') {
+            if ($value == 'varchar(191)') {
+                $obj['type'] = 'text';
+            }
+            if ($value == 'text') {
+              $obj['type'] = 'textarea';
+            }
+            if ($value == 'timestamp') {
+              $obj['type'] = 'datetime';
+            }
+            if ($value == 'int(11)') {
+              $obj['type'] = 'number';
+            }
+            
+          }
+        }
+        array_push($data, $obj);
+      }
+      //dd($data_info);
+      //dd($data);
     return $data;
   }
 }

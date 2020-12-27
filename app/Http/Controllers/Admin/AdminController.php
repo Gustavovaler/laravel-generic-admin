@@ -28,6 +28,7 @@ class AdminController extends Controller
     public function create(AdminApp $admin_app, $id)
     {
         $data = $admin_app->build_form($id);
+       // $data = json_encode($data);
         $table = strtolower($id).'s';
         return view('admin.create', ['data' => $data, 'table' => $table]);
     }
@@ -42,11 +43,16 @@ class AdminController extends Controller
     {
         $model = substr(ucwords($table),0,-1);
         $model =  'App\Models'.'\\'.$model;
-        $record = new $model;
-        $record->name = "moncho";
-        $record->description = "asdasd as da sdas d as asd as";
-        $record->quantity = 5;        
-        return $record->save();
+        $object = new $model;    
+        $fields  = $request->input();
+        
+        foreach ($fields as $key => $value) {
+           if ($object->isFillable($key)) {
+             $object->$key = $value;
+           }
+        }              
+        return $object->save();
+        //return $fields;
     }
 
     /**
