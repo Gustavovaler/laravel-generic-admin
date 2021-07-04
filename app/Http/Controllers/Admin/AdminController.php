@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function index(AdminApp $admin_app)
     {
     $models = $admin_app->get_models_name();
-    
+
     return view('admin.index', compact('models'));
     }
 
@@ -40,16 +40,16 @@ class AdminController extends Controller
     {
         $model = substr(ucwords($table),0,-1);
         $model =  'App\Models'.'\\'.$model;
-        $object = new $model;    
+        $object = new $model;
         $fields  = $request->input();
-        
+        //dd($fields);
         foreach ($fields as $key => $value) {
            if ($object->isFillable($key)) {
              $object->$key = $value;
            }
-        }              
+        }
         return $object->save();
-        
+
     }
 
     /**
@@ -62,7 +62,7 @@ class AdminController extends Controller
     {
         $model = 'App\Models'.'\\'.$id;
         $data = $model::all();
-        $fields = $admin_app->get_fields(strtolower($id).'s');    
+        $fields = $admin_app->get_fields(strtolower($id).'s');
         return view('admin.show', ['data' => $data, 'fields' => $fields, 'model' => $id]);
     }
 

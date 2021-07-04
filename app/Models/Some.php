@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Program extends Model
+class Some extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'starring', 'category'];
 }

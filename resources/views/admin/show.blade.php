@@ -9,26 +9,27 @@
               <tr>
                   @foreach ($fields as $field)
                       <th scope="col">{{$field}}</th>
-                  @endforeach 
-                  <th scope="col">Actions</th>              
+                  @endforeach
+                  <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody>              
+            <tbody>
                   @foreach ($data as $item)
                     <tr>
                        @foreach ($fields as $field)
                            <td>{{$item->$field}}</td>
-                       @endforeach 
+                       @endforeach
                        <td>
                            <form action="/admin/{{$model}}/{{$item->id}}" method="POST">
                                @csrf
-                              <input type="submit" class="btn btn-danger mb-1" value="Delete">
+                              <input type="submit" class="btn btn-danger mb-1" value="Delete" >
                            </form>
-                           
-                           <a href="" class="btn btn-secondary">Update</a></td>             
+
+                           <a href="" class="btn btn-secondary" >Update</a>
+                        </td>
                     </tr>
-                  @endforeach   
-             
+                  @endforeach
+
             </tbody>
           </table>
 
@@ -37,5 +38,5 @@
           </div>
 
 </div>
-    
+
 @endsection
